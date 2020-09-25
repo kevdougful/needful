@@ -1,15 +1,27 @@
-CC     = gcc
-CFLAGS = -I.
-DEPS   = $(wildcard *.h)
-OBJS   = $(patsubst %.h, %.o, $(DEPS))
+IDIR	:=inc
+ODIR	:=obj
+_DEPS   :=$(shell cd $(IDIR);ls *.h)
+_OBJS   :=$(patsubst %.h,%.o,$(_DEPS))
+DEPS	:=$(patsubst %,$(IDIR)/%,$(_DEPS)) 
+OBJS	:=$(patsubst %,$(ODIR)/%,$(_OBJS)) 
+TARGET	:=main.c
 
-%.o: %.c $(DEPS)
+CFLAGS  := -I $(IDIR)
+CC      := gcc
+
+$(ODIR)/%.o: %.c $(DEPS)
 	$(CC) -c -o $@ $< $(CFLAGS)
 
-main: main.c $(OBJS)
+main: $(TARGET) $(OBJS)
 	$(CC) -o needful $^ $(CFLAGS)
 
-.PHONY: clean
+.PHONY: clean list
 
 clean:
-	rm -f *.o *~ core needful
+	rm -f $(ODIR)/*.o *~ core needful
+
+list:
+	# _DEPS=$(_DEPS)
+	# _OBJS=$(_OBJS)
+	# DEPS=$(DEPS)
+	# OBJS=$(OBJS)
