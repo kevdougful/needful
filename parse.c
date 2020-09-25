@@ -2,6 +2,8 @@
 #include <stdbool.h>
 #include <string.h>
 
+#include "location.h"
+
 bool parseAndExecute(char *input)
 {
     char *verb = strtok(input, " \n");
@@ -14,15 +16,16 @@ bool parseAndExecute(char *input)
         }
         else if (strcmp(verb, "look") == 0)
         {
-            printf("A dark screen sits before you.\n");
+            executeLook(noun);
         }
         else if (strcmp(verb, "go") == 0)
         {
-            printf("Sit. You have work to do.\n");
+            executeGo(noun);
         }
         else 
         {
             printf("I don't know how to '%s'.\n", verb);
         }
     }
+    return true;
 }

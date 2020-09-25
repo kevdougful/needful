@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdbool.h>
 
-#include "inc/parse.h"
+#include "parse.h"
 
 static char input[100] = "look around";
 
