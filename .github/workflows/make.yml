@@ -13,4 +13,4 @@ jobs:
               with:
                 fetch-depth: 1
             - name: Run Makefile
-              run: make
+              run: mkdir obj && make
