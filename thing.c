@@ -2,20 +2,20 @@
 
 #include "thing.h"
 
-THING objs[] = {
+THING thgs[] = {
     // Locations
-    {"cubicle",         NULL,       "your cubicle",},
-    {"breakroom",       NULL,       "a tiny breakroom"},
-    {"bossoffice",      NULL,       "your boss's office"},
-    {"josecube",        NULL,       "José's cubicle"},
+    {"cubicle",         LOCATION,     NULL,       "your cubicle",},
+    {"breakroom",       LOCATION,     NULL,       "a tiny breakroom"},
+    {"bossoffice",      LOCATION,     NULL,       "your boss's office"},
+    {"josecube",        LOCATION,     NULL,       "José's cubicle"},
     // Beings
-    {"me",              cubicle,    "yourself"},
-    {"boss",            bossoffice, "your asshole boss"},
-    {"jose",            josecube,
+    {"me",              BEING,        cubicle,    "yourself"},
+    {"boss",            BEING,        bossoffice, "your asshole boss"},
+    {"jose",            BEING,        josecube,
         "José, your friend and hilarious but lazy coworker"},
     // Items
-    {"token",           cubicle,    "your security token"},
-    {"usb",             cubicle,    "a beatup USB drive"},
-    {"phone",           cubicle,
+    {"token",           ITEM,         cubicle,    "your security token"},
+    {"usb",             ITEM,         cubicle,    "a beatup USB drive"},
+    {"phone",           ITEM,         cubicle,
         "Your trusty smartphone. The screen is cracked and it can be a pain to charge, but it works."}
 };

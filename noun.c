@@ -11,12 +11,12 @@ static bool objectHasTag(THING *obj, const char *noun)
 
 static THING *getObject(const char *noun)
 {
-    THING *obj, *res = NULL;
-    for (obj = objs; obj < endOfObjs; obj++)
+    THING *thg, *res = NULL;
+    for (thg = thgs; thg < endOfThgs; thg++)
     {
-        if (objectHasTag(obj, noun))
+        if (objectHasTag(thg, noun))
         {
-            res = obj;
+            res = thg;
         }
     }
     return res;
@@ -41,4 +41,36 @@ THING *getVisible(const char *intention, const char *noun)
         obj = NULL;
     }
     return obj;
+}
+
+THING *getPossession(THING *from, const char *verb, const char *noun)
+{
+    THING *thg = NULL;
+    if (from == NULL)
+    {
+        printf("I don't understand who you want to %s.\n", verb);
+    }
+    else if ((thg = getObject(noun)) == NULL)
+    {
+        printf("I don't understand what you want to %s.\n", verb);
+    }
+    else if (thg == from)
+    {
+        printf("You should not be doing that to %s.\n", thg->description);
+        thg = NULL;
+    }
+    else if (thg->location != from)
+    {
+        if (from == player)
+        {
+            printf("You are not holding any %s.\n", noun);
+        }
+        else
+        {
+            printf("There appears to be no %s you can get from %s.\n",
+                   noun, from->description);
+        }
+        thg = NULL;
+    }
+    return thg;
 }

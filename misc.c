@@ -2,19 +2,33 @@
 
 #include "thing.h"
 
+THING *actorHere(void)
+{
+    THING *thg;
+    for (thg = thgs; thg < endOfThgs; thg++)
+    {
+        if (thg->location == player->location && thg->type == BEING)
+        {
+            return thg;
+        }
+    }
+    return NULL;
+}
+
 int listObjectsAtLocation(THING *location)
 {
     int count = 0;
-    THING *obj;
-    for (obj = objs; obj < endOfObjs; obj++)
+    THING *thg;
+    char *msg = location == player ? "You have:" : "You see:";
+    for (thg = thgs; thg < endOfThgs; thg++)
     {
-        if (obj != player && obj->location == location)
+        if (thg != player && thg->location == location)
         {
             if (count++ == 0)
             {
-                printf("You see:\n");
+                printf("%s\n", msg);
             }
-            printf("%s\n", obj->description);
+            printf("%s\n", thg->description);
         }
     }
     return count;

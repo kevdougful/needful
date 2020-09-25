@@ -5,7 +5,7 @@
 #include "misc.h"
 #include "noun.h"
 
-void executeLook(const char *noun)
+void look(const char *noun)
 {
     if (noun != NULL && strcmp(noun, "around") == 0)
     {
@@ -17,14 +17,14 @@ void executeLook(const char *noun)
         printf("I don't understand what you want to see.\n");
     }
 }
-void executeGo(const char *noun)
+void go(const char *noun)
 {
     THING *obj = getVisible("where you want to go", noun);
     if (obj->location == NULL && obj != player->location)
     {
         printf("OK.\n");
         player->location = obj;
-        executeLook("around");
+        look("around");
     }
     else
     {

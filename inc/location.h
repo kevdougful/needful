@@ -1,2 +1,2 @@
-extern void executeLook(const char *noun);
-extern void executeGo(const char *noun);
+extern void look(const char *noun);
+extern void go(const char *noun);
