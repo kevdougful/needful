@@ -8,6 +8,7 @@ static bool objectHasTag(THING *obj, const char *noun)
 {
     return noun != NULL && *noun != '\0' && strcmp(noun, obj->tag) == 0;
 }
+
 static THING *getObject(const char *noun)
 {
     THING *obj, *res = NULL;
@@ -20,6 +21,7 @@ static THING *getObject(const char *noun)
     }
     return res;
 }
+
 THING *getVisible(const char *intention, const char *noun)
 {
     THING *obj = getObject(noun);
