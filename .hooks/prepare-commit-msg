@@ -1,0 +1,21 @@
+#!/bin/bash
+
+branch=$(git rev-parse --abbrev-ref HEAD)
+title=$(head -1 $1)
+
+for word in $(echo "$title")
+do
+    if [ $branch = "master" ] && [[ $word =~ ^v[0-9]*\.[0-9]*\.[0-9]*$ ]]
+    then
+        commit_version=${word:1} # Strip the 'v' character
+        file_version=$(head -1 inc/version.h | cut -d" " -f3)
+        file_version=${file_version%\"} # Strip trailing quote
+        file_version=${file_version#\"} # Strip leading quote
+        if [ $commit_version != $file_version ]
+        then
+            echo "#define VERSION \"$commit_version\"" > inc/version.h
+            >&2 echo "ERROR: update version.h to $commit_version. Amend commit and continue"
+            exit 1
+        fi
+    fi
+done
