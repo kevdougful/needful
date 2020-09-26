@@ -2,8 +2,8 @@ name: release
 
 on:
     push:
-        branches:
-            - master
+        tags:
+            - 'v*'
 
 jobs:
     build:
@@ -16,7 +16,7 @@ jobs:
                 fetch-depth: 1
             - name: Build project
               id: build
-              run: mkdir obj && make && chmod +x needful
+              run: mkdir obj && make
             - name: Create New Release
               id: create_release
               uses: actions/create-release@v1
