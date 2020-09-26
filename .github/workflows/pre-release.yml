@@ -1,0 +1,39 @@
+name: pre-release
+
+on:
+    push:
+        branch:
+            - develop
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              id: checkout
+              uses: actions/checkout@develop
+              with:
+                fetch-depth: 1
+            - name: Build project
+              id: build
+              run: mkdir obj && make
+            - name: Create New Release
+              id: create_release
+              uses: actions/create-release@v1
+              env: 
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                tag_name: ${{ github.sha }}
+                release_name: Pre-release ${{ github.sha }}
+                draft: false
+                prerelease: true
+            - name: Upload Binary
+              id: upload_binary
+              uses: actions/upload-release-asset@v1
+              env:
+                GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+              with:
+                upload_url: ${{ steps.create_release.outputs.upload_url }}
+                asset_path: ./needful
+                asset_name: needful
+                asset_content_type: application/octet-stream
