@@ -11,7 +11,7 @@ jobs:
         steps:
             - name: Checkout code
               id: checkout
-              uses: actions/checkout@develop
+              uses: actions/checkout@v2
               with:
                 fetch-depth: 1
             - name: Build project
