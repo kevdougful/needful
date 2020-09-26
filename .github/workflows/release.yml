@@ -16,7 +16,7 @@ jobs:
                 fetch-depth: 1
             - name: Build project
               id: build
-              run: mkdir obj && make
+              run: mkdir obj && make && chmod +x needful
             - name: Create New Release
               id: create_release
               uses: actions/create-release@v1
