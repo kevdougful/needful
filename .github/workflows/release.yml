@@ -1,0 +1,35 @@
+name: release
+
+on:
+    push:
+        branches:
+            - master
+
+jobs:
+    build:
+        runs-on: ubuntu-latest
+        steps:
+            - name: Checkout code
+              id: checkout
+              uses: actions/checkout@master
+              with:
+                fetch-depth: 1
+            - name: Build project
+              id: build
+              run: mkdir obj && make
+            - name: Create New Release
+              id: create_release
+              uses: actions/create-release@v1
+              with:
+                tag_name: ${{ github.ref }}
+                release_name: Relase ${{ github.ref }}
+                draft: false
+                prerelease: false
+            - name: Upload Binary
+              id: upload_binary
+              uses: actions/upload-release-asset@v1
+              with:
+                upload_url: ${{ steps.create_release.outputs.upload_url }}
+                asset_path: ./needful
+                asset_name: needful
+                asset_content_type: application/octet-stream
